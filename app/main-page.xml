@@ -1,0 +1,37 @@
+<!--
+A simple COVID-19 Symptom Reporting Application.
+-->
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+xmlns:CheckBox="@nstudio/nativescript-checkbox"
+navigatingTo="navigatingTo">
+
+      <ActionBar title="COVID-19 Symptom Reporting" icon=""></ActionBar>
+
+    <StackLayout class="p-20 text-center">
+        <Label text="{{ report.date, 'As of ' + report.date }}" />
+        <Label text="{{ report.uuid, 'Device ID:' + report.uuid }}" />
+
+        <StackLayout class="hr m-10"></StackLayout>
+
+        <StackLayout class="nt-form m-x-auto">
+            <Label text="Report any COVID-19 symptoms below:" />
+
+            <CheckBox:CheckBox id="fever" text="Fever? > 100.4F" checked="{{ report.fever }}" />
+            <CheckBox:CheckBox id="cough" text="Cough?" checked="{{ report.cough }}" />
+            <CheckBox:CheckBox id="breath" text="Shortness of breath?" checked="{{ report.breath }}" />
+            <CheckBox:CheckBox id="chills" text="Chills?" checked="{{ report.chills }}" />
+            <CheckBox:CheckBox id="shaking" text="Repeated shaking with chills?" checked="{{ report.shaking }}" />
+            <CheckBox:CheckBox id="musclePain" text="Muscle pain?" checked="{{ report.musclePain }}" />
+            <CheckBox:CheckBox id="headache" text="Headache?" checked="{{ report.headache }}" />
+            <CheckBox:CheckBox id="soreThroat" text="Sore throat?" checked="{{ report.soreThroat }}" />
+            <CheckBox:CheckBox id="tasteSmell" text="New loss of taste/smell?" checked="{{ report.tasteSmell }}" />
+        </StackLayout>
+
+        <StackLayout class="hr m-10"></StackLayout>
+
+        <Label text="Check the symptoms list above and tap Submit to report." textWrap="true"/>
+        <Button text="Submit" tap="{{ onSubmit }}" class="-primary"/>
+        <Label text="{{ message }}" class="h3 text-center" textWrap="true"/>
+        <Label text="{{ version }}" />
+    </StackLayout>
+</Page>
