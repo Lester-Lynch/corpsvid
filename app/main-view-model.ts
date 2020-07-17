@@ -1,6 +1,11 @@
 /*
     COVID-19 Symptom Reporting
 
+    15 July 2020
+    - Now pull db into record for last report info and write report to db.
+    - Make 'as of' date an event to stay current
+    - On submit revise 'Previous report'
+    - This should account for app being left running
     13 July 2020
     - Corrected data format to work with Couchbase.
     - Pull up previous record.  Optional layout allows for clean slate.
@@ -22,20 +27,21 @@ import { dateProperty } from '@nativescript/core/ui/date-picker';
 
 export class corpsvidModel extends Observable {
 
-    version = "14Jul20 1122";
+    version = "16Jul20@1415";
+
+
     
     corpsvidDatabase: Couchbase;
 
     record: any;
 
-    // @ObservableProperty() 
-    report = {
+    @ObservableProperty()     report = {
         'uuid': device.uuid,
         'date': Date(),
         'fever': false,
         'cough': false,
         'breath': false,
-        'chills': true,
+        'chills': false,
         'shaking': false,
         'musclePain': false,
         'headache': false,
@@ -45,9 +51,8 @@ export class corpsvidModel extends Observable {
 
     @ObservableProperty()  message = null;
     @ObservableProperty()  lastReportDate = "na";
-    // @ObservableProperty()  todaysReportDate = new Date();
-    // @ObservableProperty()  
-    uuid = device.uuid;
+    @ObservableProperty() currentDate = Date();
+    @ObservableProperty() uuid = device.uuid;
   
 
     constructor() {
@@ -58,19 +63,26 @@ export class corpsvidModel extends Observable {
         pushCorpsvidDatabase.setContinuous(true);
         pushCorpsvidDatabase.start();
 
+        /* Trying to get the current date time to stream on screen
+        setInterval(() => {
+            this.report.date = Date();
+            console.log(this.currentDate);
+        }, 1000);
+        */
+
         console.log("UUID: " + this.uuid);
-        console.log(this.record);
+        console.dir(this.report);
         this.getRecord();
     }
 
     getRecord() {
         console.log("Get record...")
-        var result = this.corpsvidDatabase.query({
+        var queryResult = this.corpsvidDatabase.query({
             select: []
         });
-        console.log("Database length: " + result.length);
+        console.log("Database length: " + queryResult.length);
 
-/*  Use this to always start with a clean report
+    /*  Use this to always start with a clean report
         this.record = this.corpsvidDatabase.getDocument(this.uuid);
         console.log(this.record);
         if (this.record) {
@@ -80,16 +92,20 @@ export class corpsvidModel extends Observable {
         } else {
             console.log("No database record found!");
         }
-*/
+    */
 
-        this.report = this.corpsvidDatabase.getDocument(this.uuid);
-        console.log(this.report);
-        if (this.report) {
+        console.log("--- Get Document ---")
+        this.record = this.corpsvidDatabase.getDocument(this.uuid);
+        console.log(this.record);
+        if (this.record) {
             console.log("Database record found:");
-            this.lastReportDate = this.report.date
-            this.message = "Last report: " + this.lastReportDate;
+            this.report = this.record;
+            console.dir(this.report);
+            this.lastReportDate = this.report.date;
+            this.message = "Previous report: " + this.lastReportDate;
         } else {
             console.log("No database record found!");
+            this.message = "No previous report found."
         }
     }
 
@@ -99,14 +115,17 @@ export class corpsvidModel extends Observable {
 
         console.log("Submit...");
         console.log(this.report);
+        this.report.date = Date();
 
-        if (this.report) {
+        if (this.record) {
             this.corpsvidDatabase.updateDocument( this.uuid, this.report )
             console.log("Record updated");
         } else {
             this.corpsvidDatabase.createDocument( this.report, this.uuid )
             console.log("Record created");
         }
+        this.lastReportDate = this.report.date;
+        this.message = "Previous report: " + this.lastReportDate;
     };
 
 }

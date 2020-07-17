@@ -8,14 +8,12 @@ navigatingTo="navigatingTo">
       <ActionBar title="COVID-19 Symptom Reporting" icon=""></ActionBar>
 
     <StackLayout class="p-20 text-center">
-        <Label text="{{ report.date, 'As of ' + report.date }}" />
         <Label text="{{ report.uuid, 'Device ID:' + report.uuid }}" />
 
         <StackLayout class="hr m-10"></StackLayout>
 
         <StackLayout class="nt-form m-x-auto">
             <Label text="Report any COVID-19 symptoms below:" />
-
             <CheckBox:CheckBox id="fever" text="Fever? > 100.4F" checked="{{ report.fever }}" />
             <CheckBox:CheckBox id="cough" text="Cough?" checked="{{ report.cough }}" />
             <CheckBox:CheckBox id="breath" text="Shortness of breath?" checked="{{ report.breath }}" />
@@ -31,7 +29,7 @@ navigatingTo="navigatingTo">
 
         <Label text="Check the symptoms list above and tap Submit to report." textWrap="true"/>
         <Button text="Submit" tap="{{ onSubmit }}" class="-primary"/>
-        <Label text="{{ message }}" class="h3 text-center" textWrap="true"/>
-        <Label text="{{ version }}" />
+        <Label text="{{ message }}" class="text-center" textWrap="true"/>
+        <Label text="{{ version, 'Version: ' + version }}" />
     </StackLayout>
 </Page>
