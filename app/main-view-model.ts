@@ -1,6 +1,12 @@
 /*
     COVID-19 Symptom Reporting
 
+    25 Aug 2020
+    - Added useCleartextTraffic handling to manifest
+    - Added xml/network_security_config file
+    - Added getRecord after 1st submit to ensure future changes are handled as document updates
+    31 July 2020
+    - SGW now running SSL due to Android not allowing cleartext
     15 July 2020
     - Now pull db into record for last report info and write report to db.
     - Make 'as of' date an event to stay current
@@ -27,7 +33,7 @@ import { dateProperty } from '@nativescript/core/ui/date-picker';
 
 export class corpsvidModel extends Observable {
 
-    version = "16Jul20@1415";
+    version = "25Aug20 1345";
 
 
     
@@ -123,6 +129,7 @@ export class corpsvidModel extends Observable {
         } else {
             this.corpsvidDatabase.createDocument( this.report, this.uuid )
             console.log("Record created");
+            this.getRecord();               // Get the record so future submits are seen as updates
         }
         this.lastReportDate = this.report.date;
         this.message = "Previous report: " + this.lastReportDate;
