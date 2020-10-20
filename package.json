@@ -13,11 +13,11 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
-    "@nativescript/core": "^6.5.15",
-    "@nativescript/theme": "^2.3.3",
+    "@nativescript/core": "^6.5.20",
+    "@nativescript/theme": "^2.5.0",
     "@nstudio/nativescript-checkbox": "^1.0.0",
     "nativescript-couchbase-plugin": "^0.9.6",
-    "tns-core-modules": "^6.5.15"
+    "tns-core-modules": "^6.5.20"
   },
   "devDependencies": {
     "nativescript-dev-webpack": "~1.5.0",
