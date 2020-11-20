@@ -10,7 +10,7 @@ import { ObservableProperty } from "../observable-property-decorator";
 
 Read more at https://www.nativescript.org/blog/nativescript-observable-magic-string-property-name-be-gone
 **/
-import { Observable } from 'tns-core-modules/data/observable';
+import { Observable } from '@nativescript/core';
 
 export function ObservableProperty() {
     return (target: Observable, propertyKey: string) => {

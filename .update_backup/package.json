@@ -4,16 +4,15 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
-    "@nativescript/core": "^7.0.13",
-    "@nativescript/theme": "^3.0.0",
-    "@nstudio/nativescript-checkbox": "^2.0.4",
+    "@nativescript/core": "7.0.0",
+    "@nativescript/theme": "^2.5.0",
+    "@nativescript/webpack": "3.0.0",
+    "@nstudio/nativescript-checkbox": "^1.0.0",
     "nativescript-couchbase-plugin": "^0.9.6"
   },
   "devDependencies": {
-    "@nativescript/android": "7.0.1",
-    "@nativescript/types": "7.0.0",
-    "@nativescript/webpack": "~3.0.0",
-    "typescript": "3.9.7"
+    "typescript": "3.9.7",
+    "@nativescript/types": "7.0.0"
   },
   "gitHead": "20a65d338ae8f8911087ab6615b89363f864b07b",
   "readme": "NativeScript Application"

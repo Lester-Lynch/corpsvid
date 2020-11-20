@@ -1,6 +1,7 @@
 /*
     COVID-19 Symptom Reporting
-
+    17 Nov 2020
+    - NS7 fixes
     25 Aug 2020
     - Added useCleartextTraffic handling to manifest
     - Added xml/network_security_config file
@@ -26,14 +27,14 @@ import { Observable, ObservableArray } from '@nativescript/core';
 import { fromObject } from '@nativescript/core/data/observable'
 import { ObservableProperty } from "./observable-property-decorator";
 import { CheckBox } from '@nstudio/nativescript-checkbox';
-import { device } from "@nativescript/core/platform"
+import { Device } from "@nativescript/core/platform"
 import { Couchbase, Replicator } from "nativescript-couchbase-plugin";
 import { dateProperty } from '@nativescript/core/ui/date-picker';
 
 
 export class corpsvidModel extends Observable {
 
-    version = "25Aug20 1345";
+    version = "17Nov20 1947";
 
 
     
@@ -42,7 +43,7 @@ export class corpsvidModel extends Observable {
     record: any;
 
     @ObservableProperty()     report = {
-        'uuid': device.uuid,
+        'uuid': Device.uuid,
         'date': Date(),
         'fever': false,
         'cough': false,
@@ -58,7 +59,7 @@ export class corpsvidModel extends Observable {
     @ObservableProperty()  message = null;
     @ObservableProperty()  lastReportDate = "na";
     @ObservableProperty() currentDate = Date();
-    @ObservableProperty() uuid = device.uuid;
+    @ObservableProperty() uuid = Device.uuid;
   
 
     constructor() {
